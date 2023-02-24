@@ -4,4 +4,5 @@ use (
 	./broker
 	./front-end
 	./auth
+	./logger
 )
