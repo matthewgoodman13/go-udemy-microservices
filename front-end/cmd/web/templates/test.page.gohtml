@@ -10,6 +10,9 @@
                 <a id="brokerBtn" class="btn btn-outline-secondary" href="javascript:void(0)">Test Broker</a>
                 <a id="authBrokerBtn" class="btn btn-outline-secondary" href="javascript:void(0)">Test Auth</a>
                 <a id="logBtn" class="btn btn-outline-secondary" href="javascript:void(0)">Test Log</a>
+                <a id="logRabbitBtn" class="btn btn-outline-secondary" href="javascript:void(0)">Test Log via Rabbit</a>
+                <a id="logRPCBtn" class="btn btn-outline-secondary" href="javascript:void(0)">Test Log via RPC</a>
+                <a id="logGRPCBtn" class="btn btn-outline-secondary" href="javascript:void(0)">Test Log via gRPC</a>               
                 <a id="mailBtn" class="btn btn-outline-secondary" href="javascript:void(0)">Test Mail</a>
 
                 <div id="output" class="mt-5" style="outline: 1px solid silver; padding: 2em;">
@@ -39,6 +42,9 @@
         let brokerBtn = document.getElementById("brokerBtn");
         let authBrokerBtn = document.getElementById("authBrokerBtn");
         let logBtn = document.getElementById("logBtn");
+        let logRabbitBtn = document.getElementById("logRabbitBtn");
+        let logRPCBtn = document.getElementById("logRPCBtn");
+        let logGRPCBtn = document.getElementById("logGRPCBtn");
         let mailBtn = document.getElementById("mailBtn");
 
         let sent = document.getElementById("payload");
@@ -102,9 +108,9 @@
                 });
         });
 
-        logBtn.addEventListener("click", () => {
+        const handleLogEvent = (logType) => {
             const payload = {
-                action: "log",
+                action: logType,
                 log: {
                     name: "event",
                     data: "some kind of data"
@@ -135,6 +141,22 @@
                 .catch(error => {
                     output.innerHTML += `<br><strong>Error: </strong> ${error.message}`
                 });
+        }
+
+        logBtn.addEventListener("click", () => {
+            handleLogEvent("log");
+        });
+
+        logRabbitBtn.addEventListener("click", () => {
+            handleLogEvent("log_rabbit");
+        });
+
+        logRPCBtn.addEventListener("click", () => {
+            handleLogEvent("log_rpc");
+        });
+
+        logGRPCBtn.addEventListener("click", () => {
+            handleLogEvent("log_grpc");
         });
 
         mailBtn.addEventListener("click", () => {
