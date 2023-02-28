@@ -39,6 +39,8 @@
 
 {{define "js"}}
     <script>
+
+
         let brokerBtn = document.getElementById("brokerBtn");
         let authBrokerBtn = document.getElementById("authBrokerBtn");
         let logBtn = document.getElementById("logBtn");
@@ -56,7 +58,7 @@
                 method: "POST",
             }
 
-            fetch("http:\/\/localhost:8080", body)
+            fetch({{print .BrokerURL}}, body)
                 .then(response => response.json())
                 .then(data => {
                     sent.innerHTML = JSON.stringify("No Data", null, 4);
@@ -91,7 +93,7 @@
                 body: JSON.stringify(payload)
             }
 
-            fetch("http:\/\/localhost:8080/handle", body)
+            fetch({{print .BrokerURL "/handle"}}, body)
                 .then(response => response.json())
                 .then(data => {
                     sent.innerHTML = JSON.stringify(payload, null, 4);
@@ -126,7 +128,7 @@
                 body: JSON.stringify(payload)
             }
 
-            fetch("http:\/\/localhost:8080/handle", body)
+            fetch({{print .BrokerURL "/handle"}}, body)
                 .then(response => response.json())
                 .then(data => {
                     sent.innerHTML = JSON.stringify(payload, null, 4);
@@ -179,7 +181,7 @@
                 body: JSON.stringify(payload)
             }
 
-            fetch("http:\/\/localhost:8080/handle", body)
+            fetch({{print .BrokerURL "/handle"}}, body)
                 .then(response => response.json())
                 .then(data => {
                     sent.innerHTML = JSON.stringify(payload, null, 4);
