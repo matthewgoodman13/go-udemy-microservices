@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: listener-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: listener-service
+  template:
+    metadata:
+      labels:
+        app: listener-service
+    spec:
+      containers:
+        - name: listener-service
+          image: matthewgoodman13/listener-service:1.0.0
+          ports:
+            - containerPort: 80
+            - containerPort: 5001
+            - containerPort: 50001
+          resources:
+            requests:
+              cpu: 250m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 128Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: listener-service
+spec:
+  selector:
+    app: listener-service
+  ports:
+    - protocol: TCP
+      name: web-port
+      port: 80
+      targetPort: 80
+    - protocol: TCP
+      name: rpc-port
+      port: 5001
+      targetPort: 5001
+    - protocol: TCP
+      name: grpc-port
+      port: 50001
+      targetPort: 50001

@@ -39,8 +39,6 @@
 
 {{define "js"}}
     <script>
-
-
         let brokerBtn = document.getElementById("brokerBtn");
         let authBrokerBtn = document.getElementById("authBrokerBtn");
         let logBtn = document.getElementById("logBtn");
@@ -53,12 +51,14 @@
         let received = document.getElementById("received");
         let output = document.getElementById("output");
 
+        const backend_url = {{.BrokerURL}};
+
         brokerBtn.addEventListener("click", () => {
             const body = {
                 method: "POST",
             }
 
-            fetch({{print .BrokerURL}}, body)
+            fetch(`${backend_url}`, body)
                 .then(response => response.json())
                 .then(data => {
                     sent.innerHTML = JSON.stringify("No Data", null, 4);
@@ -93,7 +93,7 @@
                 body: JSON.stringify(payload)
             }
 
-            fetch({{print .BrokerURL "/handle"}}, body)
+            fetch(`${backend_url}/handle`, body)
                 .then(response => response.json())
                 .then(data => {
                     sent.innerHTML = JSON.stringify(payload, null, 4);
@@ -128,7 +128,7 @@
                 body: JSON.stringify(payload)
             }
 
-            fetch({{print .BrokerURL "/handle"}}, body)
+            fetch(`${backend_url}/handle`, body)
                 .then(response => response.json())
                 .then(data => {
                     sent.innerHTML = JSON.stringify(payload, null, 4);
@@ -181,7 +181,7 @@
                 body: JSON.stringify(payload)
             }
 
-            fetch({{print .BrokerURL "/handle"}}, body)
+            fetch(`${backend_url}/handle`, body)
                 .then(response => response.json())
                 .then(data => {
                     sent.innerHTML = JSON.stringify(payload, null, 4);
